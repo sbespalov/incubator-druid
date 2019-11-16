@@ -34,8 +34,23 @@ public class ObjectWriter implements ResultFormat.Writer
 
   public ObjectWriter(final OutputStream outputStream, final ObjectMapper jsonMapper) throws IOException
   {
-    this.jsonGenerator = jsonMapper.getFactory().createGenerator(outputStream);
+    this(outputStream, jsonMapper.getFactory().createGenerator(outputStream));
+  }
+
+  public ObjectWriter(OutputStream outputStream, JsonGenerator jsonGenerator)
+  {
+    this.jsonGenerator = jsonGenerator;
     this.outputStream = outputStream;
+  }
+
+  JsonGenerator getJsonGenerator()
+  {
+    return jsonGenerator;
+  }
+
+  OutputStream getOutputStream()
+  {
+    return outputStream;
   }
 
   @Override
@@ -47,11 +62,18 @@ public class ObjectWriter implements ResultFormat.Writer
   @Override
   public void writeResponseEnd() throws IOException
   {
+    writeResponseEnd(true);
+  }
+
+  public void writeResponseEnd(boolean flush) throws IOException
+  {
     jsonGenerator.writeEndArray();
 
-    // End with LF.
-    jsonGenerator.flush();
-    outputStream.write('\n');
+    if (flush) {
+      // End with LF.
+      jsonGenerator.flush();
+      outputStream.write('\n');
+    }
   }
 
   @Override

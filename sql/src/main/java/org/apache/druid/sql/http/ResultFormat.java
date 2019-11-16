@@ -100,6 +100,20 @@ public enum ResultFormat
     {
       return new ObjectLinesWriter(outputStream, jsonMapper);
     }
+  },
+  
+  OBJECTARRAY {
+    @Override
+    public String contentType()
+    {
+      return MediaType.APPLICATION_JSON;
+    }
+
+    @Override
+    public Writer createFormatter(final OutputStream outputStream, final ObjectMapper jsonMapper) throws IOException
+    {
+      return new ObjectArrayWriter(new ObjectWriter(outputStream, jsonMapper));
+    }
   };
 
   public abstract String contentType();
