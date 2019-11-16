@@ -49,26 +49,31 @@ public class ObjectArrayWriter implements Writer
     objectWriter.writeResponseStart();
   }
 
+  @Override
   public void writeHeader(List<String> columnNames) throws IOException
   {
     objectWriter.writeHeader(columnNames);
   }
 
+  @Override
   public void writeRowStart() throws IOException
   {
     objectWriter.writeRowStart();
   }
 
+  @Override
   public void writeRowField(String name, Object value) throws IOException
   {
     objectWriter.writeRowField(name, value);
   }
 
+  @Override
   public void writeRowEnd() throws IOException
   {
     objectWriter.writeRowEnd();
   }
 
+  @Override
   public void writeResponseEnd() throws IOException
   {
     objectWriter.writeResponseEnd(false);
@@ -78,6 +83,7 @@ public class ObjectArrayWriter implements Writer
     outputStream.write('\n');
   }
 
+  @Override
   public void close() throws IOException
   {
     objectWriter.close();
