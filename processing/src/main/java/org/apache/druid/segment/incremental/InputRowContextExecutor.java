@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package org.apache.druid.segment.incremental;
 
 import com.google.common.base.Supplier;
@@ -24,7 +25,7 @@ import org.apache.druid.java.util.common.ISE;
 
 public class InputRowContextExecutor
 {
-  private static final ThreadLocal<InputRow> in = new ThreadLocal<>();
+  private static final ThreadLocal<InputRow> in = new ThreadLocal<>(); //NOPMD
   private final InputRow row;
   private final Runnable runnable;
 
@@ -37,12 +38,13 @@ public class InputRowContextExecutor
   public void execute()
   {
     if (in.get() != null) {
-      throw new ISE(String.format("Nesteed %s context not allowed.", InputRow.class.getSimpleName()));
+      throw new ISE("Nesteed "+ InputRow.class.getSimpleName() + " context not allowed.");
     }
     in.set(row);
     try {
       runnable.run();
-    } finally {
+    } 
+    finally {
       in.remove();
     }
 

@@ -178,7 +178,7 @@ public class OnheapIncrementalIndexBenchmark extends AbstractBenchmark
       final AtomicInteger numEntries = getNumEntries();
       final AtomicLong sizeInBytes = getBytesInMemory();
       
-      aggregatorRowContextExecutor(row, aggs).execute();;
+      aggregatorRowContextExecutor(row, aggs).execute();
 
       return new AddToFactsResult(numEntries.get(), sizeInBytes.get(), new ArrayList<>());
     }
