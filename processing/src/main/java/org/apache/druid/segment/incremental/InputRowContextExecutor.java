@@ -25,7 +25,9 @@ import org.apache.druid.java.util.common.ISE;
 
 public class InputRowContextExecutor
 {
-  private static final ThreadLocal<InputRow> in = new ThreadLocal<>(); //NOPMD
+  //CHECKSTYLE.OFF: Regexp
+  private static final ThreadLocal<InputRow> in = new ThreadLocal<>();
+  //CHECKSTYLE.ON: Regexp
   private final InputRow row;
   private final Runnable runnable;
 
@@ -38,7 +40,7 @@ public class InputRowContextExecutor
   public void execute()
   {
     if (in.get() != null) {
-      throw new ISE("Nesteed "+ InputRow.class.getSimpleName() + " context not allowed.");
+      throw new ISE("Nesteed " + InputRow.class.getSimpleName() + " context not allowed.");
     }
     in.set(row);
     try {
